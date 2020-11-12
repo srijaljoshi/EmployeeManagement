@@ -7,6 +7,17 @@ import com.tcs.employeeapp.model.Employee;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
+	private static EmployeeService employeeService;
+	
+	private EmployeeServiceImpl() {}
+	
+	public static EmployeeService getInstance() {
+		if (employeeService == null) {
+			employeeService = new EmployeeServiceImpl();
+		}
+		return employeeService;
+	}
+	
 	@Override
 	public String addEmployee(Employee employee) {
 		// TODO Auto-generated method stub
