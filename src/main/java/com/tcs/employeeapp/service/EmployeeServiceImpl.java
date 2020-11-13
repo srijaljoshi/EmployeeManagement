@@ -23,14 +23,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public String addEmployee(Employee employee) {
-		// TODO Auto-generated method stub
 		return repository.addEmployee(employee);
 	}
 
 	@Override
-	public String updateEmployee(long id) {
-		// TODO Auto-generated method stub
-		return repository.updateEmployee(id);
+	public String updateEmployee(long id, Employee employee) {
+		return repository.updateEmployee(id, employee);
 	}
 
 	@Override

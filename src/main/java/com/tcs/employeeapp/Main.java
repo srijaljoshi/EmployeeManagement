@@ -383,14 +383,136 @@ public class Main {
 		}
 	}
 	
-	private static void employeeActions() {
+	private static void employeeActions(EmployeeService employeeService) throws IOException {
 		System.out.println("Enter your choice");
 		String choice = "";
+		choice = br.readLine();
 		switch (choice) {
 		case "1":
-			System.out.println("Enter employee details in the following order: (id, ");
+			System.out.println("Enter employee details in the following order: (id, organizationId, departmentId, name, age, position)");
+			try {
+				long id = Long.parseLong(br.readLine());
+				long orgId = Long.parseLong(br.readLine());
+				long deptId = Long.parseLong(br.readLine());
+				String name = br.readLine();
+				int age = Integer.parseInt(br.readLine());
+				String position = br.readLine();
+				
+				Employee employee = new Employee(id, orgId, deptId, name, age, position);
+				String result = employeeService.addEmployee(employee);
+				if ("success".equalsIgnoreCase(result)) {
+					System.out.println("<Employee> Added Successfully");
+				} else {
+					System.out.println("<Employee> Failed to add");
+				}
+				
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
 			break;
-
+			
+		case "2":
+			System.out.println("Enter the  id to update: ");
+	
+			try {
+				long id = Long.parseLong(br.readLine());
+				Optional<Employee> optional = employeeService.findById(id);
+				if (optional.isPresent()) {
+					System.out.println("Enter new details:(name, age, position) ");
+					Employee employee = new Employee();
+					String name = br.readLine();
+					int age = Integer.parseInt(br.readLine());
+					String position = br.readLine();
+					employee.setName(name); 
+					employee.setAge(age);
+					employee.setPosition(position);
+					
+					String result = employeeService.updateEmployee(id, employee);
+					
+					if ("success".equalsIgnoreCase(result)) {
+						System.out.println("<employee> Updated Successfully");
+					} else {
+						System.out.println("<employee> Failed to updated");
+					}
+					
+				} else {
+					System.out.println("Given ID doesn't exist. Please try again!");
+				}
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			break;
+			
+		case "3":
+			System.out.println("Enter the ID of the employee to delete: ");
+			try {
+				long id = Long.parseLong(br.readLine());
+				String result = employeeService.deleteEmployee(id);
+				
+				if ("success".equalsIgnoreCase(result)) {
+					System.out.println("<Employee> Deleted Successfully");
+				} else {
+					System.out.println("<Employee> Failed to delete");
+				}
+			} catch (NumberFormatException | IOException e1) {
+				e1.printStackTrace();
+			}
+			break;
+			
+		case "4":
+			System.out.println("Enter the ID of the employee to fetch details: ");
+			try {
+				long id = Long.parseLong(br.readLine());
+				Optional<Employee> optional = employeeService.findById(id);
+				if (optional.isPresent()) {
+					Employee employee = optional.get();
+					System.out.println("Found the employee: " + employee);
+				} else {
+					System.out.println("Given ID doesn't exist. Please try again!");
+				}
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			break;
+			
+		case "5":
+			System.out.println("Getting all employees in the db... ");
+			Optional<List<Employee>> optionalOrg = employeeService.getEmployees();
+			if (optionalOrg.isPresent()) {
+				List<Employee> employees = optionalOrg.get();
+				System.out.println("---------------------------------------------------------");
+				for (Iterator<Employee> iterator = employees.iterator(); iterator.hasNext();) {
+					Employee employee = iterator.next();
+					System.out.println(employee);
+				}
+				System.out.println("---------------------------------------------------------");
+			}
+			break;
+		
+		case "6":
+			System.out.println("Enter the organization ID to retrive the employees of that organization: ");
+			try {
+				long orgId = Long.parseLong(br.readLine());
+				Optional<List<Employee>> allEmployeesOptional = employeeService.findByOrganizationId(orgId);
+				if (allEmployeesOptional.isPresent()) {
+					List<Employee> employees = allEmployeesOptional.get();
+					if (employees.size() > 0) {
+						System.out.println("-------------------Employee Details--------------------");
+						for (Employee employee : employees) {
+							System.out.println(employee);
+						}
+						System.out.println("---------------------------------------------------------");
+					} else {
+					System.out.println("No employees exist currently in the organization");
+					}
+				}
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			break;
 		}
