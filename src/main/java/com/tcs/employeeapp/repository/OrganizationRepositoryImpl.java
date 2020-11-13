@@ -198,7 +198,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfOrganization(long orgId) {
 		Connection connection = DBUtils.getConnection();
-		List<Employee> employees = null;
+		List<Employee> employees = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
 		String sql = "SELECT * FROM employee WHERE organizationId = (?)";
@@ -232,10 +232,10 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
 		Connection connection = DBUtils.getConnection();
-		List<Department> departments = null;
+		List<Department> departments = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
-		String sql = "SELECT * FROM Department WHERE organizationId = (?)";
+		String sql = "SELECT * FROM department WHERE organizationId = (?)";
 		int result = 0;
 		try {
 			ps = connection.prepareStatement(sql);

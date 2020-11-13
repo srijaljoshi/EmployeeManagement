@@ -182,14 +182,15 @@ public class Main {
 					Optional<List<Employee>> allEmployeesOptional = organizationService.getAllEmployeesOfOrganization(orgId);
 					if (allEmployeesOptional.isPresent()) {
 						List<Employee> employees = allEmployeesOptional.get();
-						System.out.println("-------------------Employee Details--------------------");
-						for (Employee employee : employees) {
-							System.out.println(employee);
-						}
-						System.out.println("---------------------------------------------------------");
-	
-					} else {
+						if (employees.size() > 0) {
+							System.out.println("-------------------Employee Details--------------------");
+							for (Employee employee : employees) {
+								System.out.println(employee);
+							}
+							System.out.println("---------------------------------------------------------");
+						} else {
 						System.out.println("No employees exist currently in the organization");
+						}
 					}
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
@@ -203,14 +204,16 @@ public class Main {
 					Optional<List<Department>> allDepOptional = organizationService.getAllDepartmentsOfOrganization(orgId);
 					if (allDepOptional.isPresent()) {
 						List<Department> departments = allDepOptional.get();
-						System.out.println("-------------------Department Details--------------------");
-						for (Department dept: departments) {
-							System.out.println(dept);
+						if (departments.size() > 0) {
+							System.out.println("-------------------Department Details--------------------");
+							for (Department dept: departments) {
+								System.out.println(dept);
+							}
+							System.out.println("---------------------------------------------------------");
 						}
-						System.out.println("---------------------------------------------------------");
-	
-					} else {
-						System.out.println("No employees exist currently in the organization");
+						else {
+						System.out.println("No departments exist currently in the organization");
+						}
 					}
 				} catch (NumberFormatException | IOException e) {
 					e.printStackTrace();
