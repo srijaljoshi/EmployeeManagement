@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -167,7 +168,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 	@Override
 	public Optional<List<Organization>> getOrganizations() {
 		Connection connection = DBUtils.getConnection();
-		List<Organization> organizations = null;
+		List<Organization> organizations = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
 		String sql = "SELECT * FROM organization";

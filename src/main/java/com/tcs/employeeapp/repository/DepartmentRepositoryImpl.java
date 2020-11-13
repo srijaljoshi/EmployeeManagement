@@ -2,12 +2,15 @@ package com.tcs.employeeapp.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
+import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.utils.DBUtils;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository{
@@ -87,20 +90,91 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
 	@Override
 	public String deleteDepartment(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = DBUtils.getConnection();
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "DELETE FROm department WHERE id = (?)";
+		
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, id);
+			result = ps.executeUpdate();
+			if (result > 0) {
+				connection.commit();
+				return "success";
+			}
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {	
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeConnection(connection);
+		}
+		return "fail";
 	}
 
 	@Override
 	public Optional<Department> findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = DBUtils.getConnection();
+		Department department = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;	
+		String sql = "SELECT * FROM department where id=(?)";
+		int result = 0;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				department = new Department();
+				department.setId(rs.getLong("id"));
+				department.setOrganizationId(rs.getLong("organizationId"));
+				department.setName(rs.getString("name"));		
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//fail
+			Optional.empty();
+		} finally {
+			DBUtils.closeConnection(connection);
+		}
+		
+		return Optional.of(department);
 	}
 
 	@Override
 	public Optional<List<Department>> getDepartments() {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = DBUtils.getConnection();
+		List<Department> departments = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;	
+		String sql = "SELECT * FROM department";
+		int result = 0;
+		try {
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Department department = new Department();
+				department.setId(rs.getLong("id"));
+				department.setOrganizationId(rs.getLong("organizationId"));
+				department.setName(rs.getString("name"));
+				departments.add(department);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//fail
+			Optional.empty();
+		} finally {
+			DBUtils.closeConnection(connection);
+		}
+		
+		return Optional.of(departments);
 	}
 
 	@Override

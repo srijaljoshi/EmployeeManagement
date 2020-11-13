@@ -35,32 +35,29 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public String deleteDepartment(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return departmentRepository.deleteDepartment(id);
 	}
 
 	@Override
 	public Optional<Department> findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return departmentRepository.findById(id);
 	}
 
 	@Override
 	public Optional<List<Department>> getDepartments() {
-		// TODO Auto-generated method stub
-		return null;
+		return departmentRepository.getDepartments();
 	}
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfDepartment(long deptId) {
-		// TODO Auto-generated method stub
-		return null;
+		return departmentRepository.getAllEmployeesOfDepartment(deptId);
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-		// TODO Auto-generated method stub
-		return null;
+		// using this since it was already implemented 
+		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
+		return organizationService.getAllDepartmentsOfOrganization(orgId);
 	}
 
 }
