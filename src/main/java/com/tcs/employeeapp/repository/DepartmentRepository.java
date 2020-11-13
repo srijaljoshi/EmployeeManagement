@@ -8,7 +8,7 @@ import com.tcs.employeeapp.model.Employee;
 
 public interface DepartmentRepository {
 	String addDepartment(Department department);
-	String updateDepartment(long id);
+	String updateDepartment(long id, Department department);
 	String deleteDepartment(long id);
 	Optional<Department> findById(long id);
 	Optional<List<Department>> getDepartments();

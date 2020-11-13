@@ -14,6 +14,14 @@ public class Department {
 	private Long organizationId;
 	private String name;
 	private List<Employee> employees;
+	
+	// custom constructor
+	public Department(long id, long oid, String name) {
+		this.id = id;
+		this.organizationId = oid;
+		this.name = name;
+	}
+	
 	@Override
 	public String toString() {
 		return "Department [id=" + id + ", organizationId=" + organizationId + ", name=" + name + "]";

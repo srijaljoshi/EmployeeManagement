@@ -5,10 +5,15 @@ import java.util.Optional;
 
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
+import com.tcs.employeeapp.repository.DepartmentRepository;
+import com.tcs.employeeapp.repository.DepartmentRepositoryImpl;
 
 public class DepartmentServiceImpl implements DepartmentService {
 
 	private static DepartmentService departmentService;
+	
+	// dao singleton instance variable
+	private DepartmentRepository departmentRepository = DepartmentRepositoryImpl.getInstance();
 	
 	private DepartmentServiceImpl() {}
 	public static DepartmentService getInstance() {
@@ -20,14 +25,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	
 	@Override
 	public String addDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+		return departmentRepository.addDepartment(department);
 	}
 
 	@Override
-	public String updateDepartment(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateDepartment(long id, Department department) {
+		return departmentRepository.updateDepartment(id, department);
 	}
 
 	@Override
