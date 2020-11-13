@@ -179,13 +179,41 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfDepartment(long deptId) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = DBUtils.getConnection();
+		List<Employee> employees = new ArrayList<>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;	
+		String sql = "SELECT * FROM employee WHERE departmentId=(?)";
+		int result = 0;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, deptId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Employee emp = new Employee();
+				emp.setId(rs.getLong("id"));
+				emp.setDepartmentId(rs.getLong("departmentId"));
+				emp.setOrganizationId(rs.getLong("organizationId"));
+				emp.setName(rs.getString("name"));
+				emp.setAge(rs.getInt("age"));
+				emp.setPosition(rs.getString("position"));
+				employees.add(emp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//fail
+			Optional.empty();
+		} finally {
+			DBUtils.closeConnection(connection);
+		}
+		
+		return Optional.of(employees);
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-		// TODO Auto-generated method stub
+		// Already implemented in OrganizationRepositoryImpl
 		return null;
 	}
 
