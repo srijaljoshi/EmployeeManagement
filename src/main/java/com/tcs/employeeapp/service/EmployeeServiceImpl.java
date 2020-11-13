@@ -3,23 +3,31 @@ package com.tcs.employeeapp.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.repository.EmployeeRepository;
 import com.tcs.employeeapp.repository.EmployeeRepositoryImpl;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	private static EmployeeService employeeService;
+	@Autowired
+	private EmployeeRepository repository;
 	
-	private EmployeeRepository repository = EmployeeRepositoryImpl.getInstance();
-	private EmployeeServiceImpl() {}
-	
-	public static EmployeeService getInstance() {
-		if (employeeService == null) {
-			employeeService = new EmployeeServiceImpl();
-		}
-		return employeeService;
-	}
+//	private static EmployeeService employeeService;
+//	
+//	private EmployeeRepository repository = EmployeeRepositoryImpl.getInstance();
+//	private EmployeeServiceImpl() {}
+//	
+//	public static EmployeeService getInstance() {
+//		if (employeeService == null) {
+//			employeeService = new EmployeeServiceImpl();
+//		}
+//		return employeeService;
+//	}
 	
 	@Override
 	public String addEmployee(Employee employee) {

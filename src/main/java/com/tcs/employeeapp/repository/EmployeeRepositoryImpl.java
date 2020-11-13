@@ -8,27 +8,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.tcs.employeeapp.model.Employee;
-import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.utils.DBUtils;
 
+@Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-	private static EmployeeRepository employeeRepository;
-	
-	private EmployeeRepositoryImpl() {}
-	
-	public static EmployeeRepository getInstance() {
-		if (employeeRepository == null) {
-			employeeRepository = new EmployeeRepositoryImpl();
-		}
-		return employeeRepository;
-	}
+	@Autowired
+	private DBUtils dbUtils;
+		
+//	private static EmployeeRepository employeeRepository;
+//	
+//	private EmployeeRepositoryImpl() {}
+//	
+//	public static EmployeeRepository getInstance() {
+//		if (employeeRepository == null) {
+//			employeeRepository = new EmployeeRepositoryImpl();
+//		}
+//		return employeeRepository;
+//	}
 	
 	
 	@Override
 	public String addEmployee(Employee employee) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "INSERT into employee(id, organizationId, departmentId, name, age, position) VALUES(?,?,?,?,?,?)";
 		int result = 0;
@@ -56,14 +62,14 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			e.printStackTrace();
 
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		return "fail";
 	}
 
 	@Override
 	public String updateEmployee(long id, Employee employee) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "UPDATE employee SET name = (?), age = (?), position = (?) where id=(?)";
 		int result = 0;
@@ -96,13 +102,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			e.printStackTrace();
 			return "fail";
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 	}
 
 	@Override
 	public String deleteEmployee(long id) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "DELETE FROm organization where id=(?)";
 		int result = 0;
@@ -131,13 +137,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			e.printStackTrace();
 			return "fail";
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 	}
 
 	@Override
 	public Optional<Employee> findById(long id) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		Employee employee = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -162,7 +168,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(employee);
@@ -170,7 +176,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 	@Override
 	public Optional<List<Employee>> getEmployees() {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		List<Employee> employees = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -195,7 +201,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(employees);
@@ -203,7 +209,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 	@Override
 	public Optional<List<Employee>> findByOrganizationId(long orgId) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		List<Employee> employees = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -229,7 +235,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(employees);

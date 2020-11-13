@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.tcs.employeeapp.config.AppConfig;
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
@@ -24,9 +27,17 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
-		DepartmentService departmentService = DepartmentServiceImpl.getInstance();
-		EmployeeService employeeService = EmployeeServiceImpl.getInstance();
+//		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
+//		DepartmentService departmentService = DepartmentServiceImpl.getInstance();
+//		EmployeeService employeeService = EmployeeServiceImpl.getInstance();
+		
+		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		OrganizationService organizationService = context.getBean("organizationServiceImpl", OrganizationService.class);
+		DepartmentService departmentService = context.getBean("departmentServiceImpl", DepartmentService.class);
+		EmployeeService employeeService = context.getBean("employeeServiceImpl", EmployeeService.class);
+		
 		
 		boolean running = true;
 		String choice = "";
@@ -64,6 +75,8 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
+		
+		context.close();
 	}
 
 

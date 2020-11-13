@@ -3,26 +3,36 @@ package com.tcs.employeeapp.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.repository.DepartmentRepository;
-import com.tcs.employeeapp.repository.DepartmentRepositoryImpl;
+import com.tcs.employeeapp.repository.OrganizationRepository;
 
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-	private static DepartmentService departmentService;
+	@Autowired
+	private DepartmentRepository departmentRepository;
 	
-	// dao singleton instance variable
-	private DepartmentRepository departmentRepository = DepartmentRepositoryImpl.getInstance();
-	
-	private DepartmentServiceImpl() {}
-	public static DepartmentService getInstance() {
-		if (departmentService == null) {
-			departmentService = new DepartmentServiceImpl();
-		}
-		return departmentService;
-	}
-	
+	@Autowired
+	private OrganizationService organizationService;
+		
+//	private static DepartmentService departmentService;
+//	
+//	// dao singleton instance variable
+//	private DepartmentRepository departmentRepository = DepartmentRepositoryImpl.getInstance();
+//	
+//	private DepartmentServiceImpl() {}
+//	public static DepartmentService getInstance() {
+//		if (departmentService == null) {
+//			departmentService = new DepartmentServiceImpl();
+//		}
+//		return departmentService;
+//	}
+//	
 	@Override
 	public String addDepartment(Department department) {
 		return departmentRepository.addDepartment(department);
@@ -56,7 +66,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
 		// using this since it was already implemented 
-		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
 		return organizationService.getAllDepartmentsOfOrganization(orgId);
 	}
 

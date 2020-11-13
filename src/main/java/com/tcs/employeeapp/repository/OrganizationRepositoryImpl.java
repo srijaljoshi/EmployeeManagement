@@ -8,27 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.utils.DBUtils;
 
+@Repository
 public class OrganizationRepositoryImpl implements OrganizationRepository {
+
+	@Autowired
+	private DBUtils dbUtils;
 	
-	private static OrganizationRepository organizationRepository;
-	
-	private OrganizationRepositoryImpl() {}
-	
-	public static OrganizationRepository getInstance() {
-		if (organizationRepository == null) {
-			organizationRepository = new OrganizationRepositoryImpl();
-		}
-		return organizationRepository;
-	}
+//	private static OrganizationRepository organizationRepository;
+//	
+//	private OrganizationRepositoryImpl() {}
+//	
+//	public static OrganizationRepository getInstance() {
+//		if (organizationRepository == null) {
+//			organizationRepository = new OrganizationRepositoryImpl();
+//		}
+//		return organizationRepository;
+//	}
 
 	@Override
 	public String addOrganization(Organization organization) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "INSERT into organization(id, name, address) VALUES(?,?,?)";
 		int result = 0;
@@ -59,13 +66,13 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			e.printStackTrace();
 			return "fail";
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 	}
 
 	@Override
 	public String updateOrganization(long id, Organization organization) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "UPDATE organization SET name = (?), address = (?) where id=(?)";
 		int result = 0;
@@ -96,13 +103,13 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			e.printStackTrace();
 			return "fail";
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 	}
 
 	@Override
 	public String deleteOrganization(long id) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		PreparedStatement ps = null;
 		String sql = "DELETE FROm organization where id=(?)";
 		int result = 0;
@@ -131,13 +138,13 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			e.printStackTrace();
 			return "fail";
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 	}
 
 	@Override
 	public Optional<Organization> findById(long id) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		Organization organization = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -159,7 +166,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(organization);
@@ -167,7 +174,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 
 	@Override
 	public Optional<List<Organization>> getOrganizations() {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		List<Organization> organizations = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -189,7 +196,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(organizations);
@@ -197,7 +204,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfOrganization(long orgId) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		List<Employee> employees = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -223,7 +230,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(employees);
@@ -231,7 +238,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-		Connection connection = DBUtils.getConnection();
+		Connection connection = dbUtils.getConnection();
 		List<Department> departments = new ArrayList<>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
@@ -254,7 +261,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
 			//fail
 			Optional.empty();
 		} finally {
-			DBUtils.closeConnection(connection);
+			dbUtils.closeConnection(connection);
 		}
 		
 		return Optional.of(departments);

@@ -3,26 +3,33 @@ package com.tcs.employeeapp.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.repository.OrganizationRepository;
 import com.tcs.employeeapp.repository.OrganizationRepositoryImpl;
 
+@Service
 public class OrganizationServiceImpl implements OrganizationService {
 
-	private static OrganizationService organizationService;
+	@Autowired
+	private OrganizationRepository repository;
 	
-	private OrganizationRepository repository = OrganizationRepositoryImpl.getInstance();
-	
-	private OrganizationServiceImpl() {}
-	
-	public static OrganizationService getInstance() {
-		if (organizationService == null) {
-			organizationService = new OrganizationServiceImpl();
-		}
-		return organizationService;
-	}
+//	private static OrganizationService organizationService;
+//	
+//	private OrganizationRepository repository = OrganizationRepositoryImpl.getInstance();
+//	
+//	private OrganizationServiceImpl() {}
+//	
+//	public static OrganizationService getInstance() {
+//		if (organizationService == null) {
+//			organizationService = new OrganizationServiceImpl();
+//		}
+//		return organizationService;
+//	}
 	
 	@Override
 	public String addOrganization(Organization organization) {
