@@ -21,9 +21,7 @@ public class Main {
 
 	private static InputStreamReader isr = new InputStreamReader(System.in);
 	private static BufferedReader br = new BufferedReader(isr);
-	
-	
-	
+
 	public static void main(String[] args) {
 
 		OrganizationService organizationService = OrganizationServiceImpl.getInstance();

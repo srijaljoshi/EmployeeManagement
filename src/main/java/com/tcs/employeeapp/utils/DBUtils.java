@@ -4,26 +4,29 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class DBUtils {
 
-	public static Connection getConnection() {
-		Connection connection = null;
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/employee_management?useSSL=false", 
-							"root", "MYSQL123$");
-			
-			connection.setAutoCommit(false);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		} 
+	@Autowired
+	private DataSource dataSource;
 	
+	public Connection getConnection() {
+		Connection connection = null;
+		try {
+			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return connection;
 	}
 	
-	public static void closeConnection(Connection connection) {
+	public void closeConnection(Connection connection) {
 		if (connection != null) {
 			try {
 				connection.close();
