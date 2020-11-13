@@ -395,40 +395,47 @@ public class Main {
 	}
 
 	private static void showMenu() {
-		System.out.println("1. Organization Management\n" + "2. Department Management\n" + "3. Employee Management\n");
+		System.out.println("******************************************");
+		System.out.println(" 1. Organization Management\n" + " 2. Department Management\n" + " 3. Employee Management");
+		System.out.println("******************************************\n");
 
 	}
 	
 
 	private static void showOrganizationMenu() {
+		System.out.println("******************************************");
 		System.out.println(" 1. addOrganization(Organization organization);\n"
 				+ " 2. updateOrganization(long id, Organization organization);\n"
-				+ "	3. deleteOrganization(long id);\n"
-				+ "	4. findById(long id);\n"
-				+ "	5. getOrganizations();\n"
-				+ "	6. getAllEmployeesOfOrganization(long orgId);\n"
-				+ "	7. getAllDepartmentsOfOrganization(long orgId);");
+				+ " 3. deleteOrganization(long id);\n"
+				+ " 4. findById(long id);\n"
+				+ " 5. getOrganizations();\n"
+				+ " 6. getAllEmployeesOfOrganization(long orgId);\n"
+				+ " 7. getAllDepartmentsOfOrganization(long orgId);");
+		System.out.println("******************************************\n");
 	}
 
 	private static void showDepartmentMenu() {
+		System.out.println("******************************************");
 		System.out.println(" 1. addDepartment(Department department);\n"
-				+ "	2. updateDepartment(long id);\n"
+				+ " 2. updateDepartment(long id);\n"
 				+ " 3. deleteDepartment(long id);\n"
-				+ "	4. findById(long id);\n"
-				+ "	5. getDepartments();\n"
-				+ "	6. getAllEmployeesOfDepartment(long deptId);\n"
-				+ "	7. getAllDepartmentsOfOrganization(long orgId);");
+				+ " 4. findById(long id);\n"
+				+ " 5. getDepartments();\n"
+				+ " 6. getAllEmployeesOfDepartment(long deptId);\n"
+				+ " 7. getAllDepartmentsOfOrganization(long orgId);");
+		System.out.println("*****************************************\n");
 
 	}
 	
 	private static void showEmployeeMenu() {
+		System.out.println("******************************************");
 		System.out.println(" 1. addEmployee(Employee employee);\n"
-				+ "	2. updateEmployee(long id);\n"
-				+ "	3. deleteEmployee(long id);\n"
-				+ "	4. findById(long id);\n"
-				+ "	5. getEmployees();\n"
-				+ "	6. findByOrganizationId(long id);");
-
+				+ " 2. updateEmployee(long id);\n"
+				+ " 3. deleteEmployee(long id);\n"
+				+ " 4. findById(long id);\n"
+				+ " 5. getEmployees();\n"
+				+ " 6. findByOrganizationId(long id);");
+		System.out.println("******************************************");
 	}
 
 
