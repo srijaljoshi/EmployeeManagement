@@ -38,7 +38,7 @@ public class Main {
 			System.out.println("Enter your choice: ");
 			try {
 				choice = br.readLine();
-
+				
 				switch (choice) {
 				case "1":
 					showOrganizationMenu();
@@ -49,23 +49,23 @@ public class Main {
 				case "2":
 					showDepartmentMenu();
 					departmentActions(departmentService);
-
+				
+				case "3":
+					showEmployeeMenu();
+					employeeActions(employeeService);
+					break;
+				
+				case "q":
+					running = false;
+					break;
 				default:
+					System.err.println("Invalid choice. Please try again or hit q to quit!");
 					break;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
-//		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
-//		Organization o1 = new Organization();
-//		o1.setId(1L);
-//		o1.setName("Apple Inc.");
-//		o1.setAddress("Palo Alto");
-//		String result = organizationService.addOrganization(o1);
-//
-
 	}
 
 
@@ -522,6 +522,7 @@ public class Main {
 	private static void showMenu() {
 		System.out.println("******************************************");
 		System.out.println(" 1. Organization Management\n" + " 2. Department Management\n" + " 3. Employee Management");
+		System.err.println("PRESS q to quit!");
 		System.out.println("******************************************\n");
 
 	}

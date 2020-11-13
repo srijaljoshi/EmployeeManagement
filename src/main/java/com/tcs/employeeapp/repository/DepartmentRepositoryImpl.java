@@ -68,7 +68,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, department.getName());
-			ps.setLong(2, department.getId());
+			ps.setLong(2, id);
 			result = ps.executeUpdate();
 			if (result > 0) {
 				connection.commit();

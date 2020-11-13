@@ -30,7 +30,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 	public String addEmployee(Employee employee) {
 		Connection connection = DBUtils.getConnection();
 		PreparedStatement ps = null;
-		String sql = "INSERT into employee(id, organizationId, departmentId, name, age, position) VALUES(?,?,?,?,?)";
+		String sql = "INSERT into employee(id, organizationId, departmentId, name, age, position) VALUES(?,?,?,?,?,?)";
 		int result = 0;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -141,7 +141,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 		Employee employee = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;	
-		String sql = "SELECT * FROM organization where id=(?)";
+		String sql = "SELECT * FROM employee where id=(?)";
 		int result = 0;
 		try {
 			ps = connection.prepareStatement(sql);
