@@ -14,4 +14,10 @@ public class Department {
 	private Long organizationId;
 	private String name;
 	private List<Employee> employees;
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", organizationId=" + organizationId + ", name=" + name + "]";
+	}
+	
+	
 }

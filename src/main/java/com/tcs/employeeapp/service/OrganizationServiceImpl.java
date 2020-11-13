@@ -30,8 +30,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
-	public String updateOrganization(long id) {
-		return repository.updateOrganization(id);
+	public String updateOrganization(long id, Organization organization) {
+		return repository.updateOrganization(id, organization);
 	}
 
 	@Override

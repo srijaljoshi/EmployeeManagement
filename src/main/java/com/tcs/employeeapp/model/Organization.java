@@ -16,4 +16,19 @@ public class Organization {
 	private String address;
 	private List<Department> departments = new ArrayList<>();
 	private List<Employee> employees = new ArrayList<>();
+	
+	
+	public Organization(long id, String name, String address) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Organization [id=" + id + ", name=" + name + ", address=" + address + "]";
+	}
+	
+	
 }

@@ -9,7 +9,7 @@ import com.tcs.employeeapp.model.Organization;
 
 public interface OrganizationRepository {
 	String addOrganization(Organization organization);
-	String updateOrganization(long id);
+	String updateOrganization(long id, Organization organization);
 	String deleteOrganization(long id);
 	Optional<Organization> findById(long id);
 	Optional<List<Organization>> getOrganizations();
