@@ -12,7 +12,7 @@ public class DBUtils {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/tcs?useSSL=false", 
+					.getConnection("jdbc:mysql://localhost:3306/employee_management?useSSL=false", 
 							"root", "MYSQL123$");
 			
 			connection.setAutoCommit(false);

@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.tcs.employeeapp.model.Employee;
+import com.tcs.employeeapp.repository.EmployeeRepository;
+import com.tcs.employeeapp.repository.EmployeeRepositoryImpl;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private static EmployeeService employeeService;
 	
+	private EmployeeRepository repository = EmployeeRepositoryImpl.getInstance();
 	private EmployeeServiceImpl() {}
 	
 	public static EmployeeService getInstance() {
@@ -21,37 +24,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public String addEmployee(Employee employee) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.addEmployee(employee);
 	}
 
 	@Override
 	public String updateEmployee(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.updateEmployee(id);
 	}
 
 	@Override
 	public String deleteEmployee(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.deleteEmployee(id);
 	}
 
 	@Override
 	public Optional<Employee> findById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id);
 	}
 
 	@Override
 	public Optional<List<Employee>> getEmployees() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.getEmployees();
 	}
 
 	@Override
 	public Optional<List<Employee>> findByOrganizationId(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findByOrganizationId(id);
 	}
 
 }

@@ -6,10 +6,14 @@ import java.util.Optional;
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
+import com.tcs.employeeapp.repository.OrganizationRepository;
+import com.tcs.employeeapp.repository.OrganizationRepositoryImpl;
 
 public class OrganizationServiceImpl implements OrganizationService {
 
 	private static OrganizationService organizationService;
+	
+	private OrganizationRepository repository = OrganizationRepositoryImpl.getInstance();
 	
 	private OrganizationServiceImpl() {}
 	
@@ -22,44 +26,37 @@ public class OrganizationServiceImpl implements OrganizationService {
 	
 	@Override
 	public String addOrganization(Organization organization) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.addOrganization(organization);
 	}
 
 	@Override
 	public String updateOrganization(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.updateOrganization(id);
 	}
 
 	@Override
 	public String deleteOrganization(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.deleteOrganization(id);
 	}
 
 	@Override
 	public Optional<Organization> findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id);
 	}
 
 	@Override
 	public Optional<List<Organization>> getOrganizations() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getOrganizations();
 	}
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfOrganization(long orgId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getAllEmployeesOfOrganization(orgId);
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getAllDepartmentsOfOrganization(orgId);
 	}
 
 }
