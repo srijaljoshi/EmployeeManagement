@@ -58,6 +58,7 @@ public class Main {
 				case "2":
 					showDepartmentMenu();
 					departmentActions(departmentService);
+					break;
 				
 				case "3":
 					showEmployeeMenu();

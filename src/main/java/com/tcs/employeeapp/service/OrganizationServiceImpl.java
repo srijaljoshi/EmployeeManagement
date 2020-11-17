@@ -10,7 +10,6 @@ import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.repository.OrganizationRepository;
-import com.tcs.employeeapp.repository.OrganizationRepositoryImpl;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
@@ -33,17 +32,38 @@ public class OrganizationServiceImpl implements OrganizationService {
 	
 	@Override
 	public String addOrganization(Organization organization) {
-		return repository.addOrganization(organization);
+//		return repository.addOrganization(organization);
+		try {
+			repository.save(organization);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
 	public String updateOrganization(long id, Organization organization) {
-		return repository.updateOrganization(id, organization);
+//		return repository.updateOrganization(id, organization);
+		try {
+			repository.save(organization);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}	
 	}
 
 	@Override
 	public String deleteOrganization(long id) {
-		return repository.deleteOrganization(id);
+//		return repository.deleteOrganization(id);
+		try {
+			repository.deleteById(id);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
@@ -53,17 +73,19 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	public Optional<List<Organization>> getOrganizations() {
-		return repository.getOrganizations();
+		return Optional.ofNullable(repository.findAll());
 	}
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfOrganization(long orgId) {
-		return repository.getAllEmployeesOfOrganization(orgId);
+//		return repository.getAllEmployeesOfOrganization(orgId);
+		return Optional.ofNullable(null);
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-		return repository.getAllDepartmentsOfOrganization(orgId);
+//		return repository.getAllDepartmentsOfOrganization(orgId);
+		return Optional.ofNullable(null);
 	}
 
 }

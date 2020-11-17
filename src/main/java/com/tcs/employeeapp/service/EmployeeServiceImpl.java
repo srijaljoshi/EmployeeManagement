@@ -4,19 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.repository.EmployeeRepository;
-import com.tcs.employeeapp.repository.EmployeeRepositoryImpl;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
-	
+
 //	private static EmployeeService employeeService;
 //	
 //	private EmployeeRepository repository = EmployeeRepositoryImpl.getInstance();
@@ -28,21 +26,40 @@ public class EmployeeServiceImpl implements EmployeeService {
 //		}
 //		return employeeService;
 //	}
-	
+
 	@Override
 	public String addEmployee(Employee employee) {
-		return repository.addEmployee(employee);
+//		return repository.addEmployee(employee);
+		try {
+			repository.save(employee);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
 	public String updateEmployee(long id, Employee employee) {
-		return repository.updateEmployee(id, employee);
+		try {
+			repository.save(employee);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
 	public String deleteEmployee(long id) {
 		// TODO Auto-generated method stub
-		return repository.deleteEmployee(id);
+		try {
+			repository.deleteById(id);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
@@ -54,13 +71,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Optional<List<Employee>> getEmployees() {
 		// TODO Auto-generated method stub
-		return repository.getEmployees();
+		return Optional.ofNullable(repository.findAll());
 	}
 
 	@Override
 	public Optional<List<Employee>> findByOrganizationId(long id) {
-		// TODO Auto-generated method stub
-		return repository.findByOrganizationId(id);
+//		return repository.findByOrganizationId(id);
+		return Optional.ofNullable(null);
 	}
 
 }

@@ -35,17 +35,38 @@ public class DepartmentServiceImpl implements DepartmentService {
 //	
 	@Override
 	public String addDepartment(Department department) {
-		return departmentRepository.addDepartment(department);
+//		return departmentRepository.addDepartment(department);
+		try {
+			departmentRepository.save(department);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
 	public String updateDepartment(long id, Department department) {
-		return departmentRepository.updateDepartment(id, department);
+//		return departmentRepository.updateDepartment(id, department);
+		try {
+			departmentRepository.save(department);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
 	public String deleteDepartment(long id) {
-		return departmentRepository.deleteDepartment(id);
+//		return departmentRepository.deleteDepartment(id);
+		try {
+			departmentRepository.deleteById(id);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@Override
@@ -55,18 +76,24 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Optional<List<Department>> getDepartments() {
-		return departmentRepository.getDepartments();
+//		return departmentRepository.getDepartments();
+		return Optional.of(departmentRepository.findAll());
 	}
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfDepartment(long deptId) {
-		return departmentRepository.getAllEmployeesOfDepartment(deptId);
+//		return departmentRepository.getAllEmployeesOfDepartment(deptId);
+
+		// TODO
+		return Optional.ofNullable(null);
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
 		// using this since it was already implemented 
-		return organizationService.getAllDepartmentsOfOrganization(orgId);
+//		return organizationService.getAllDepartmentsOfOrganization(orgId);
+		// TODO
+		return Optional.ofNullable(null);
 	}
 
 }
