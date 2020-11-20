@@ -44,6 +44,7 @@ public class DBConfig {
 		properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 		properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
 		emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
 		properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		emf.setPackagesToScan("com.tcs.employeeapp.model");
