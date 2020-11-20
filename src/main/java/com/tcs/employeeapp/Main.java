@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -14,17 +15,18 @@ import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.model.Organization;
 import com.tcs.employeeapp.service.DepartmentService;
-import com.tcs.employeeapp.service.DepartmentServiceImpl;
 import com.tcs.employeeapp.service.EmployeeService;
-import com.tcs.employeeapp.service.EmployeeServiceImpl;
 import com.tcs.employeeapp.service.OrganizationService;
-import com.tcs.employeeapp.service.OrganizationServiceImpl;
 
 public class Main {
 
 	private static InputStreamReader isr = new InputStreamReader(System.in);
 	private static BufferedReader br = new BufferedReader(isr);
-
+	
+	static OrganizationService organizationService;
+	static DepartmentService departmentService;
+	static EmployeeService employeeService;
+	
 	public static void main(String[] args) {
 
 //		OrganizationService organizationService = OrganizationServiceImpl.getInstance();
@@ -33,10 +35,9 @@ public class Main {
 		
 		
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-		
-		OrganizationService organizationService = context.getBean("organizationServiceImpl", OrganizationService.class);
-		DepartmentService departmentService = context.getBean("departmentServiceImpl", DepartmentService.class);
-		EmployeeService employeeService = context.getBean("employeeServiceImpl", EmployeeService.class);
+		organizationService = context.getBean(OrganizationService.class);
+		departmentService = context.getBean(DepartmentService.class);
+		employeeService = context.getBean(EmployeeService.class);
 		
 		
 		boolean running = true;
@@ -51,18 +52,18 @@ public class Main {
 				switch (choice) {
 				case "1":
 					showOrganizationMenu();
-					organizationActions(organizationService);
+					organizationActions();
 
 					break;
 				
 				case "2":
 					showDepartmentMenu();
-					departmentActions(departmentService);
+					departmentActions();
 					break;
 				
 				case "3":
 					showEmployeeMenu();
-					employeeActions(employeeService);
+					employeeActions();
 					break;
 				
 				case "q":
@@ -82,7 +83,7 @@ public class Main {
 
 
 
-	private static void organizationActions(OrganizationService organizationService) {
+	private static void organizationActions() {
 		System.out.println("Enter your choice");
 		String choice = "";
 		
@@ -242,7 +243,7 @@ public class Main {
 			
 	}
 
-	private static void departmentActions(DepartmentService departmentService) {
+	private static void departmentActions() {
 		System.out.println("Enter your choice");
 		String choice = "";
 		
@@ -255,7 +256,8 @@ public class Main {
 					long id = Long.parseLong(br.readLine());
 					long orgId = Long.parseLong(br.readLine());
 					String name = br.readLine();
-					Department department = new Department(id, orgId, name);
+					Optional<Organization> organization = organizationService.findById(orgId);
+					Department department = new Department(id, name, organization.get(), null);
 					String result = departmentService.addDepartment(department);
 					
 					if ("success".equalsIgnoreCase(result)) {
@@ -395,7 +397,7 @@ public class Main {
 		}
 	}
 	
-	private static void employeeActions(EmployeeService employeeService) throws IOException {
+	private static void employeeActions() throws IOException {
 		System.out.println("Enter your choice");
 		String choice = "";
 		choice = br.readLine();
@@ -410,7 +412,11 @@ public class Main {
 				int age = Integer.parseInt(br.readLine());
 				String position = br.readLine();
 				
-				Employee employee = new Employee(id, orgId, deptId, name, age, position);
+				Optional<Organization> organizationOptional = organizationService.findById(orgId);
+				Optional<Department> departmentOptional = departmentService.findById(deptId);
+				
+				Employee employee = new Employee(id, organizationOptional.get(), 
+						departmentOptional.get(), name, age, position);
 				String result = employeeService.addEmployee(employee);
 				if ("success".equalsIgnoreCase(result)) {
 					System.out.println("<Employee> Added Successfully");

@@ -1,11 +1,14 @@
 package com.tcs.employeeapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,21 +22,19 @@ import lombok.NoArgsConstructor;
 public class Department {	
 	@Id
 	private Long id;
-	private Long organizationId;
+//	private Long organizationId;
 	private String name;
-	@Transient
-	private List<Employee> employees;
+
+	@ManyToOne
+	@JoinColumn(name = "organization_id")
+	private Organization organization;
 	
-	// custom constructor
-	public Department(long id, long oid, String name) {
-		this.id = id;
-		this.organizationId = oid;
-		this.name = name;
-	}
+	@OneToMany(mappedBy="department")
+	private List<Employee> employees = new ArrayList<>();
 	
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", organizationId=" + organizationId + ", name=" + name + "]";
+		return "Department [id=" + id + ", organization_id=" + organization.getId() + ", name=" + name + "]";
 	}
 	
 	

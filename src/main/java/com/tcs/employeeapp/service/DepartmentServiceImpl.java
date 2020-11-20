@@ -2,6 +2,7 @@ package com.tcs.employeeapp.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
 import com.tcs.employeeapp.repository.DepartmentRepository;
-import com.tcs.employeeapp.repository.OrganizationRepository;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -82,18 +82,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfDepartment(long deptId) {
-//		return departmentRepository.getAllEmployeesOfDepartment(deptId);
-
-		// TODO
-		return Optional.ofNullable(null);
+		Department department = findById(deptId).get();
+		return Optional.ofNullable(department.getEmployees());
 	}
 
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
 		// using this since it was already implemented 
-//		return organizationService.getAllDepartmentsOfOrganization(orgId);
-		// TODO
-		return Optional.ofNullable(null);
+		return organizationService.getAllDepartmentsOfOrganization(orgId);
 	}
 
 }

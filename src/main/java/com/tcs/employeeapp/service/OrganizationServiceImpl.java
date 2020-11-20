@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tcs.employeeapp.model.Department;
 import com.tcs.employeeapp.model.Employee;
@@ -76,16 +77,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return Optional.ofNullable(repository.findAll());
 	}
 
+	@Transactional
 	@Override
 	public Optional<List<Employee>> getAllEmployeesOfOrganization(long orgId) {
-//		return repository.getAllEmployeesOfOrganization(orgId);
-		return Optional.ofNullable(null);
+		Organization organization = repository.findById(orgId).get();
+		System.out.println("\n\nFound Organization ----" + organization + "\n\n");
+		List<Employee> orgEmployees = organization.getEmployees();
+		return Optional.ofNullable(orgEmployees);
 	}
 
+	@Transactional
 	@Override
 	public Optional<List<Department>> getAllDepartmentsOfOrganization(long orgId) {
-//		return repository.getAllDepartmentsOfOrganization(orgId);
-		return Optional.ofNullable(null);
+		Organization organization = findById(orgId).get();
+		return Optional.ofNullable(organization.getDepartments());
 	}
 
 }

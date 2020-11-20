@@ -3,10 +3,12 @@ package com.tcs.employeeapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,9 +25,11 @@ public class Organization {
 	private String name;
 	private String address;
 	
-	@Transient
+
+	@OneToMany(mappedBy = "organization")
 	private List<Department> departments = new ArrayList<>();
-	@Transient
+
+	@OneToMany(mappedBy = "organization")
 	private List<Employee> employees = new ArrayList<>();
 	
 	
